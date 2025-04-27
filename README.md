@@ -34,7 +34,7 @@ npm run start
 ¡Damos la bienvenida a las contribuciones! Por favor, lee nuestras [directrices de contribución](CONTRIBUTING.md) para más detalles.
 
 ## Licencia
-Este proyecto está licenciado bajo la Licencia Pública General de GNU versión 3.0 (GPL-3.0). Esto significa que puedes usar, modificar y distribuir el software, siempre que mantengas la misma licencia para las versiones derivadas. Consulta el archivo [LICENSE](https://www.gnu.org/licenses/gpl-3.0.txt) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT. Esto significa que puedes usar, modificar y distribuir el software, siempre que incluyas una copia del aviso de copyright original. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ## Contacto
 Para cualquier pregunta o comentario, contáctanos en [contact@davgracia.dev](mailto:contact@davgracia.dev).
