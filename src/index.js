@@ -31,7 +31,10 @@ async function processCSV(fileName) {
             }
         })
         .on('end', () => {
-            const employeeCountByWeek = results.reduce((acc, entry) => {
+            // Elimina los empleados que no tienen horas trabajadas
+            const filteredResults = results.filter(entry => parseFloat(entry.horas) > 0);
+
+            const employeeCountByWeek = filteredResults.reduce((acc, entry) => {
                 if (!acc[entry.semana]) {
                 acc[entry.semana] = { count: 0, totalHours: 0 };
                 }
@@ -53,7 +56,7 @@ async function processCSV(fileName) {
             }));
 
             // Crea una lista de los empleados por semana con el número de horas totales
-            const employeeListByWeek = results.reduce((acc, entry) => {
+            const employeeListByWeek = filteredResults.reduce((acc, entry) => {
                 if (!acc[entry.semana]) {
                     acc[entry.semana] = [];
                 }
@@ -65,8 +68,8 @@ async function processCSV(fileName) {
             }, {});
 
             // Haz una lista por cada empleado de las horas trabajadas por semana
-            const weeks = [...new Set(results.map(entry => entry.semana))];
-            const hoursByEmployee = results.reduce((acc, entry) => {
+            const weeks = [...new Set(filteredResults.map(entry => entry.semana))];
+            const hoursByEmployee = filteredResults.reduce((acc, entry) => {
                 if (!acc[entry.nombre]) {
                 acc[entry.nombre] = {};
                 weeks.forEach(week => {
@@ -80,7 +83,7 @@ async function processCSV(fileName) {
             //console.log('Horas trabajadas por empleado por semana:', hoursByEmployee);
 
             // Haz un ranking de las horas totales trabajadas por empleado
-            const employeeRanking = results.reduce((acc, entry) => {
+            const employeeRanking = filteredResults.reduce((acc, entry) => {
                 if (!acc[entry.nombre]) {
                     acc[entry.nombre] = 0;
                 }
@@ -94,7 +97,7 @@ async function processCSV(fileName) {
 
             // Añade al ranking anterior el número de semanas del año trabajadas
             sortedEmployeeRanking.forEach(employee => {
-                employee.semanas = results.reduce((acc, entry) => {
+                employee.semanas = filteredResults.reduce((acc, entry) => {
                     if (entry.nombre === employee.nombre && !acc.includes(entry.semana)) {
                         acc.push(entry.semana);
                     }
@@ -110,7 +113,7 @@ async function processCSV(fileName) {
             };
 
             sortedEmployeeRanking.forEach(employee => {
-                const weeklyHours = results
+                const weeklyHours = filteredResults
                     .filter(entry => entry.nombre === employee.nombre)
                     .map(entry => parseFloat(entry.horas));
 
@@ -134,7 +137,7 @@ async function processCSV(fileName) {
             };
 
             sortedEmployeeRanking.forEach(employee => {
-                const weeklyHours = results
+                const weeklyHours = filteredResults
                 .filter(entry => entry.nombre === employee.nombre)
                 .map(entry => parseFloat(entry.horas))
                 .filter(hours => hours !== 0); // Eliminate 0 values
