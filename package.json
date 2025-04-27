@@ -1,6 +1,6 @@
 {
   "name": "shop-reporter",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "This app provides a tool to automate employee shift reports in stores from CSV.",
   "main": "src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "node src/index.js"
   },
   "author": "davgracia",
-  "license": "LGPL-3.0-or-later",
+  "license": "MIT",
   "dependencies": {
     "@koa/multer": "^3.0.2",
     "csv-parser": "^3.1.0",

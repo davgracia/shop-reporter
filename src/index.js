@@ -537,6 +537,15 @@ router.get('/', async (ctx) => {
                         color: black;
                         text-decoration: none;
                     }
+
+                    .loading {
+                        display: none;
+                        text-align: center;
+                        font-size: 1.2em;
+                        color: #2c3e50;
+                        flex-direction: column;
+                        justify-content: center; /* Center vertically */
+                    }
                 </style>
 
                 <script>
@@ -559,6 +568,21 @@ router.get('/', async (ctx) => {
                         const fileInput = document.querySelector('input[type="file"]');
                         const submitButton = document.querySelector('button[type="submit"]');
                         submitButton.disabled = !fileInput.files.length;
+                    }
+
+                    function showLoading() {
+                        document.getElementById('form-input-csv').style.display = 'none';
+                        const loadingDiv = document.getElementById('loading');
+                        loadingDiv.style.display = 'flex';
+                        
+                        setTimeout(() => {
+                            loadingDiv.style.display = 'none';
+                            document.getElementById('form-input-csv').reset();
+                            document.getElementById('form-input-csv').style.display = 'block';
+                            const submitButton = document.querySelector('button[type="submit"]');
+                            submitButton.disabled = true;
+                        }
+                        , 3000); // Hide after 2 seconds
                     }
                 </script>
             </head>
@@ -584,11 +608,15 @@ router.get('/', async (ctx) => {
                         <a href="/public/example.csv" class="button">📥 Archivo de ejemplo</a>
                     </div>
                     <div class="column">
-                        <h1>🚀 ¡Vamos!</h1>
                         <form id="form-input-csv" action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+                            <h1>🚀 ¡Vamos!</h1>
                             <input type="file" name="file" accept=".csv" required onchange="toggleSubmitButton()" />
                             <button type="submit" disabled>Procesar</button>
                         </form>
+                        <div class="loading" id="loading">
+                            <div class="loader"></div>
+                            <p>Procesando archivo...</p>
+                        </div>
                     </div>
                     <footer>
                         &copy; 2025 <a href="https://github.com/davgracia/shop-reporter">SHOP REPORTER</a> (v ${packageJson.version}). Hecho con 💙 por <a target="_blank" rel="follow" href="https://github.com/davgracia">davgracia</a>.
