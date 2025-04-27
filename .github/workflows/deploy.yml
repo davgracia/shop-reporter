@@ -1,0 +1,60 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # NO instalar dependencias en Actions, así ahorramos tiempo y espacio
+
+      - name: Clean remote folder and clone repo
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+          script: |
+            # Eliminar el directorio si existe
+            rm -rf /var/www/shop-reporter.davgracia.dev
+            # Clonar el repositorio
+            git clone https://github.com/davgracia/shop-reporter.git /var/www/shop-reporter.davgracia.dev
+            cd /var/www/shop-reporter.davgracia.dev
+            # Instalar dependencias
+            npm i
+            # Instalar PM2 si no está instalado
+            npm install -g pm2
+
+      - name: Start or Reload app with PM2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+          script: |
+            source ~/.bashrc # Cargar el entorno de usuario (si es necesario)
+            cd /var/www/shop-reporter.davgracia.dev
+            # Verificar si la aplicación está corriendo con PM2
+            if /root/.nvm/versions/node/v20.19.1/bin/pm2 list | grep -q 'shop-reporter'; then
+              # Si la aplicación ya está corriendo, recargarla
+              /root/.nvm/versions/node/v20.19.1/bin/pm2 reload shop-reporter
+            else
+              # Si no está corriendo, iniciar la aplicación con PM2
+              /root/.nvm/versions/node/v20.19.1/bin/pm2 start npm --name "shop-reporter" -- start
+            fi
+            # Guardar la configuración de PM2
+            /root/.nvm/versions/node/v20.19.1/bin/pm2 save

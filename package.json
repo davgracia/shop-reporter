@@ -1,0 +1,26 @@
+{
+  "name": "shop-reporter",
+  "version": "2.0.0",
+  "description": "This app provides a tool to automate employee shift reports in stores from CSV.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "author": "davgracia",
+  "license": "LGPL-3.0-or-later",
+  "dependencies": {
+    "@koa/multer": "^3.0.2",
+    "csv-parser": "^3.1.0",
+    "csv-writer": "^1.6.0",
+    "exceljs": "^4.4.0",
+    "fs": "^0.0.1-security",
+    "koa": "^2.15.3",
+    "koa-router": "^13.0.1",
+    "koa-static": "^5.0.0",
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7",
+    "pm2": "^6.0.5"
+  }
+}
