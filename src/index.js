@@ -292,260 +292,303 @@ router.get('/', async (ctx) => {
             <head>
                 <title>Shop Reporter</title>
                 <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
                     body {
-                        background-color: #f8f8f8;
-                        color: #333333;
-                        text-align: center;
-                        font-family: 'Verdana', sans-serif;
+                        background-color: #f5f5f5;
+                        color: #2c3e50;
+                        font-family: 'Nunito', sans-serif;
                         margin: 0;
                         padding: 0;
                         display: flex;
                         flex-direction: column;
-                        justify-content: center;
                         align-items: center;
-                        height: 100vh;
+                        justify-content: center;
+                        min-height: 100vh;
+                        text-align: justify; /* Justify text */
                     }
+
                     a {
-                        color: #ff6f61;
+                        color: #2c3e50;
                         text-decoration: none;
-                        font-weight: bold;
+                        font-weight: 600;
+                        transition: color 0.3s;
                     }
+
                     a:hover {
-                        text-decoration: underline;
+                        color: #1a252f;
                     }
+
                     img {
-                        width: 150px;
-                        margin-top: 20px;
-                        margin-bottom: 30px;
+                        width: 100px;
+                        margin: 20px 0;
                     }
+
                     .container {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 20px;
-                        width: 80%;
-                        max-width: 1200px;
+                        width: 90%;
+                        max-width: 1000px;
+                        background: #ffffff;
+                        padding: 40px;
+                        border-radius: 12px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
                     }
+
                     .row {
                         display: flex;
-                        width: 100%;
+                        flex-wrap: wrap;
+                        gap: 20px;
                         justify-content: center;
                     }
+
                     .title {
-                        font-size: 2.5em;
-                        font-weight: bold;
-                        color: #333333;
-                        text-transform: uppercase;
-                        letter-spacing: 2px;
-                        margin: 0;
-                        padding: 10px 20px;
-                        border-bottom: 2px solid #ff6f61;
+                        font-size: 2.2em;
+                        font-weight: 600;
+                        text-align: center;
+                        margin-bottom: 30px;
+                        color: #2c3e50;
+                        border-bottom: 2px solid #e8e4e1;
+                        padding-bottom: 10px;
                     }
+
                     .column {
-                        flex: 1;
+                        flex: 1 1 300px;
+                        background-color: #f5f5f5;
+                        border-radius: 8px;
                         padding: 20px;
-                        border: 1px solid #333333;
-                        border-radius: 10px;
-                        margin: 10px;
+                        text-align: center;
+                        transition: transform 0.3s;
                     }
+
+                    .column:hover {
+                        transform: translateY(-5px);
+                    }
+
                     h1 {
-                        margin-top: 20px;
-                        font-size: 2em;
+                        font-size: 1.5em;
+                        margin-bottom: 10px;
+                        color: #2c3e50;
                     }
+
                     p {
                         font-size: 1em;
-                        line-height: 1.5;
+                        line-height: 1.6;
+                        color: #666666;
                     }
+
                     .button {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        margin-top: 20px;
-                        background-color: #ff6f61;
-                        color: #ffffff;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
+                        background-color: #ffffff;
+                        color: #2c3e50;
+                        padding: 12px 24px;
+                        border: 2px solid #2c3e50;
+                        border-radius: 50px;
                         font-size: 1em;
+                        margin-top: 20px;
+                        cursor: pointer;
+                        transition: background 0.3s, color 0.3s, border-color 0.3s;
                     }
+
                     .button:hover {
-                        background-color: #e65c50;
+                        background-color: #2c3e50;
+                        color: #ffffff;
+                        border-color: #ffffff;
                     }
+
                     input[type="file"] {
                         margin-top: 20px;
-                        padding: 10px;
-                        border: 1px solid #ff6f61;
-                        border-radius: 5px;
-                        background-color: #ffffff;
-                        color: #333333;
-                        cursor: pointer;
+                        border: 2px dashed #2c3e50;
+                        padding: 20px;
+                        background: #ffffff;
+                        border-radius: 8px;
+                        width: 100%;
+                        text-align: center;
                         font-size: 1em;
-                        transition: background-color 0.3s ease;
+                        cursor: pointer;
+                        transition: background-color 0.3s;
                     }
+
                     input[type="file"]:hover {
-                        background-color: #ffefef;
+                        background-color: #f0f0f0;
                     }
+
                     button[type="submit"] {
+                        background-color: #ffffff;
+                        color: #2c3e50;
+                        padding: 12px 24px;
+                        border: 2px solid #2c3e50;
+                        border-radius: 50px;
                         margin-top: 20px;
-                        padding: 10px 20px;
-                        background-color: #ff6f61;
-                        color: #ffffff;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
                         font-size: 1em;
+                        cursor: pointer;
+                        transition: background 0.3s, color 0.3s, border-color 0.3s;
+                        width: 100%; /* Full width */
                     }
+
                     button[type="submit"]:hover {
-                        background-color: #e65c50;
+                        background-color: #2c3e50;
+                        color: #ffffff;
+                        border-color: #ffffff;
                     }
+
+                    button[type="submit"]:disabled {
+                        background-color: #cccccc;
+                        color: #666666;
+                        border-color: #cccccc;
+                        cursor: not-allowed;
+                    }
+
                     .loading {
-                        display: none;
                         margin-top: 20px;
                         font-size: 1.2em;
-                        color: #ff6f61;
+                        color: #2c3e50;
+                        display: none;
                     }
-                    footer {
-                        margin-top: 20px;
-                        font-size: 0.8em;
-                        color: #999999;
-                    }
+
                     .loader {
-                        border: 16px solid #f3f3f3;
-                        border-top: 16px solid #ff6f61;
+                        border: 6px solid #f0f0f0;
+                        border-top: 6px solid #2c3e50;
                         border-radius: 50%;
-                        width: 120px;
-                        height: 120px;
-                        animation: spin 2s linear infinite;
-                        margin-top: 20px;
+                        width: 60px;
+                        height: 60px;
+                        animation: spin 1s linear infinite;
+                        margin: 20px auto;
                     }
+
                     table {
                         width: 100%;
                         border-collapse: collapse;
                         margin-top: 20px;
+                        font-size: 0.9em;
                     }
+
                     th, td {
-                        border: 1px solid #333333;
-                        padding: 5px;
-                        text-align: center;
+                        border: 1px solid #e8e4e1;
+                        padding: 10px;
                     }
+
                     th {
-                        background-color: #ff6f61;
+                        background-color: #2c3e50;
                         color: #ffffff;
                     }
+
                     details {
-                        margin-top: 10px;
-                        text-align: left;
+                        margin-top: 20px;
+                        background: #f5f5f5;
+                        padding: 15px;
+                        border-radius: 8px;
                     }
+
                     summary {
-                        font-weight: bold;
+                        font-weight: 600;
+                        color: #2c3e50;
                         cursor: pointer;
-                        color: #ff6f61;
+                        outline: none;
                     }
-                    summary:hover {
-                        text-decoration: underline;
+
+                    footer {
+                        margin-top: 40px;
+                        font-size: 0.8em;
+                        color: #999999;
+                        text-align: center;
                     }
+
                     @keyframes spin {
                         0% { transform: rotate(0deg); }
                         100% { transform: rotate(360deg); }
                     }
+
+                    .modal {
+                        display: none;
+                        position: fixed;
+                        z-index: 1000;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .modal-content {
+                        background-color: #fff;
+                        padding: 20px;
+                        border: 1px solid #888;
+                        width: 90%;
+                        max-width: 600px;
+                        border-radius: 8px;
+                        text-align: center;
+                    }
+
+                    .close {
+                        color: #aaa;
+                        float: right;
+                        font-size: 28px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+
+                    .close:hover,
+                    .close:focus {
+                        color: black;
+                        text-decoration: none;
+                    }
                 </style>
+
                 <script>
-                    function showLoading() {
-                        document.getElementById('loading').style.display = 'block';
-                        document.getElementById('form-input-csv').style.display = 'none';
-                        document.querySelector('button[type="submit"]').disabled = true;
-                        setTimeout(() => {
-                            document.getElementById('loading').style.display = 'none';
-                            document.getElementById('form-input-csv').style.display = 'block';
-                            document.querySelector('input[type="file"]').value = '';
-                            document.querySelector('button[type="submit"]').disabled = false;
-                        }, 4000);
+                    function openModal() {
+                        document.getElementById('infoModal').style.display = 'flex';
+                    }
+
+                    function closeModal() {
+                        document.getElementById('infoModal').style.display = 'none';
+                    }
+
+                    window.onclick = function(event) {
+                        const modal = document.getElementById('infoModal');
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    };
+
+                    function toggleSubmitButton() {
+                        const fileInput = document.querySelector('input[type="file"]');
+                        const submitButton = document.querySelector('button[type="submit"]');
+                        submitButton.disabled = !fileInput.files.length;
                     }
                 </script>
             </head>
             <body>
                 <div class="container">
                     <div class="row">
-                        <h1 class="title">Shop Reporter</h1>
+                        <h1 class="title">🗓️ Shop Reporter</h1>
                     </div>
                     <div class="row">
-                        <div class="column">
-                            <h2>Instrucciones</h2>
-                            <details>
-                                <summary>1. Estructura del archivo</summary>
-                                <p>El archivo debe contener las columnas: tienda, semana, nombre, horas. Como en la <a target="_blank" href="/public/example.csv">plantilla de ejemplo</a>.</p>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>tienda</th>
-                                            <th>semana</th>
-                                            <th>nombre</th>
-                                            <th>horas</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>VAZQUEZ SEQUEIRA, ARTURO</td>
-                                            <td>40</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>MARTINEZ FULGENCIO, PEPITA</td>
-                                            <td>35</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>VAZQUEZ SEQUEIRA, ARTURO</td>
-                                            <td>30</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>MARTINEZ FULGENCIO, PEPITA</td>
-                                            <td>30</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </details>
-                            <details>
-                                <summary>2. Formato del archivo</summary>
-                                <p>Asegúrate de que el archivo esté en formato <a target="_blank" href="https://support.microsoft.com/es-es/office/importar-o-exportar-archivos-de-texto-txt-o-csv-5250ac4c-663c-47ce-937b-339e391393ba#:~:text=Vaya%20a%20Archivo%20%3E%20Guardar%20como,(delimitado%20por%20comas)..">CSV (delimitado por comas)</a>.</p>
-                            </details>
-                            <details>
-                                <summary>3. Subir el archivo</summary>
-                                <p>Haz clic en el botón <i>Subir y procesar</i> para cargar el archivo.</p>
-                            </details>
-                            <details>
-                                <summary>4. Procesamiento</summary>
-                                <p>Espera a que el archivo se procese y se genere el reporte.</p>
-                            </details>
-                            <details>
-                                <summary>¿Es seguro el proceso?</summary>
-                                <p>¡Claro! Por varios motivos:</p>
-                                <ul>
-                                    <li>El archivo se procesa en el servidor y no se almacena.</li>
-                                    <li>La información se elimina del servidor una vez descargada.</li>
-                                    <li>Tanto el proceso de subida como de descarga se realiza a través de HTTPS (cifrado), lo que garantiza la seguridad de los datos.</li>
-                                    <li>¡Además! Siempre puedes revisar el código fuente <a href="https://github.com/davgracia/shop-reporter" target="_blank">aquí</a> y descargarlo y ejecutarlo en tu propio ordenador.</li>
-                            </details>
-                        </div>
-                        <div class="column">
-                            <h2>Subir Archivo CSV</h2>
-                            <p>La transferencia tanto de subida como de descarga de los resultados se hace por canales seguros bajo el protocolo de cifrado HTTPS.</p>
-                            <p>La información se procesará y se generará un Libro Excel con los resultados que se descargará automáticamente a tu ordenador.</p>
-                            <p><strong>Una vez descargado, toda la información se eliminará del servidor y no será utilizada para otras causas.</strong></p>
-                            <form id="form-input-csv" action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
-                                <input type="file" name="file" accept=".csv" required />
-                                <button type="submit">Subir y procesar</button>
-                            </form>
-                            <p id="loading" class="loading">Subiendo y procesando archivo, por favor espera...</p>
-                            <p style="font-size: 0.9em;"><strong>Nota:</strong> Si en tu CSV aparecen datos duplicados como los de la <a target="_blank" href="/public/example.csv">plantilla de ejemplo</a> no te preocupes, el programa elimina las filas duplicadas antes de procesarlas.</p>
+                        <div id="infoModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <h2>Información</h2>
+                            <p>Esta herramienta está diseñada para procesar archivos CSV de manera segura. Los archivos subidos son procesados y eliminados automáticamente después de generar el reporte, minimizando el riesgo de almacenamiento innecesario. Solo se aceptan archivos con extensión <code>.csv</code> para evitar la ejecución de archivos maliciosos.</p>
+                            <p>Si tienes dudas o inquietudes sobre la seguridad, por favor, recuerda que el <a href="https://github.com/davgracia/shop-reporter" target="_blank">código fuente de esta aplicación</a> es público. ¡Puedes examinarlo o descargarlo en tu ordenador y ejecutarlo ahí!
                         </div>
                     </div>
+                    <div class="column">
+                        <h1>📄 ¿Cómo funciona?</h1>
+                        <p>Sube un archivo CSV con los datos de las tiendas y empleados como en el <a href="/public/example.csv">archivo de ejemplo</a>. El sistema procesará la información y generará un reporte detallado en formato Excel que descargará en tu ordenador de forma automática.</p>
+
+                        <button class="button" onclick="openModal()">ℹ️ Más info</button>
+                        <a href="/public/example.csv" class="button">📥 Archivo de ejemplo</a>
+                    </div>
+                    <div class="column">
+                        <h1>🚀 ¡Vamos!</h1>
+                        <form id="form-input-csv" action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+                            <input type="file" name="file" accept=".csv" required onchange="toggleSubmitButton()" />
+                            <button type="submit" disabled>Procesar</button>
+                        </form>
+                    </div>
                     <footer>
-                        &copy; 2025 <a href="https://github.com/davgracia/shop-reporter">SHOP REPORTER</a> (v ${packageJson.version}). Hecho con ❤️ por <a target="_blank" rel="follow" href="https://github.com/davgracia">davgracia</a>.
+                        &copy; 2025 <a href="https://github.com/davgracia/shop-reporter">SHOP REPORTER</a> (v ${packageJson.version}). Hecho con 💙 por <a target="_blank" rel="follow" href="https://github.com/davgracia">davgracia</a>.
                     </footer>
                 </div>
             </body>
